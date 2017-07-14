@@ -18,8 +18,10 @@ function initServer(){
   });
 }
 
+function example(){
+   console.log("Inicio de la app")
+}
 
-
-
+example();
 initMiddlewares();
 initServer();
