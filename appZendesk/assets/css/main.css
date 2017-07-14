@@ -1,0 +1,21 @@
+body {
+  font-size: 13px;
+}
+
+label {
+  padding-top: 8px;
+}
+
+#name, #apellido_materno, #apellido_paterno, #direccion, #telefono, #email, #notes {
+  width: 98%;
+  border-style: groove;
+}
+
+#notes {
+  height: 5em;
+}
+
+button {
+  margin-top: 8px;
+  margin-bottom: 12px;
+}

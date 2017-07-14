@@ -1,0 +1,11 @@
+{
+  "app": {
+    "description": "Busca usuarios por dni",
+    "name": "",
+    "parameters": {
+      "urlRest" : { "label": "Url de la api rest", "helpText": "Ingrese la direccion de su api rest" },
+      "username" : { "label": "Usuario de zendesk", "helpText": "Este usuario debe de tener acceso ADMIN en Zendesk" },
+      "username_password"     : { "label": "Contraseña del usuario" }
+    }
+  }
+}

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+</head>
+<body>
+
+<script src="https://cdn.jsdelivr.net/jquery/3.0.0/jquery.min.js"></script>
+<script
+        type="text/javascript"       
+        src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js">   
+</script>
+
+<!-- Hadlebars es una plantilla que permite añadir información de manera dinámica. -->
+
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
+</script>
+
+</body>
+
+<script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
+
+<script type="text/javascript" src="../js/main.js"></script>   <!-- Código de nuestra aplicación -->
+
+
+<!-- Formulario de búsqueda principal -->
+
+<div id="buscar_dni" type="text/x-handlebars-template" align="center">
+    <br>
+    <form>
+          <div class="control-group">
+              <label class="control-label" for="inputRUT">
+                  Ingrese RUT 
+              </label>
+          <div class="controls">
+              <input 
+                    onBlur="usuarioFueraDelCampoBusqueda()"
+                    onFocus="usuarioDentroDelCampoBusqueda()"
+                    type="search" 
+                    id="dni" 
+                    placeholder="Número correlativo-Dígito verificador" 
+                    size="27" 
+                    minlength="3"
+                    maxlength="13"
+                    autofocus 
+                    required/>
+          </div>
+
+        <button id="add-btn" class="btn btn-primary btn-small">
+            <span class="glyphicon glyphicon-search"></span>
+            Buscar
+        </button>
+        
+        <button type="button" class="btn btn-primary btn-small" id="botonEliminar">
+            <span class="glyphicon glyphicon-remove"></span>
+            Limpiar datos
+        </button>
+
+    </form>
+    <br>
+    <br>
+</div>
+
+<!-- ################################################################################################################## -->
+
+
+<!-- Mensaje enviado una vez encontrado un usuario en zendesk -->
+
+<div id="user" class="alert alert-success"></div>         <!-- Rectangulo de color que contendrá el texto del script -->
+<script id="userInfo" type="text/x-handlebars-template">
+    <div align="center">
+        <b>{{titulo}}</b>
+    </div>
+    <br>
+         Usuario:                <i>{{name}}</i>
+    <br>
+         Correo electrónico:     {{#if email}}
+                                               <i>{{email}}</i>
+                                 {{else}}
+                                               no está registrado.
+                                 {{/if}}
+</script>
+
+<!-- ################################################################################################################### -->
+
+
+<!-- Mensaje de error emitido por Zendesk -->
+<div id="userError" class="alert alert-danger"></div>
+<script id="userErrorInfo" type="text/x-handlebars-template">
+    Error: {{error}}
+    <br>
+    {{description}}
+</script>
+<!-- Mensaje de error emitido por Zendesk -->
+
+
+<!-- Formulario para la creacion de un nuevo usuario -->
+<div id="userForm">
+    <h3 align="center">Nuevo usuario</h3><br>
+    
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input 
+               id="apellido_paterno" 
+               type="text" 
+               class="form-control" 
+               name="Apellido_paterno" 
+               placeholder="Apellido paterno (obligatorio)" 
+               required>
+    </div>
+    
+    <br>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input id="apellido_materno" 
+               type="text" 
+               class="form-control" 
+               name="Apellido_materno" 
+               placeholder="Apellido materno">
+    </div>
+
+    <br>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input 
+              id="name" 
+              type="text" 
+              class="form-control" 
+              name="name" 
+              placeholder="Ingrese su nombre (obligatorio)"  
+              required>
+    </div>
+
+    <br>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input 
+              id="direccion" 
+              type="text" 
+              class="form-control" 
+              name="Direccion" 
+              placeholder="Dirección (calle, Nro, Depto, Comuna)">
+    </div>
+
+    <br>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+        <input id="telefono" type="tel" class="form-control" name="Telefono" placeholder="Nro Teléfono contacto">
+    </div>
+    
+    <br>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <input 
+              id="email" 
+              type="email" 
+              class="form-control" 
+              name="Email" 
+              placeholder="Correo electrónico" 
+              >
+        
+    </div>
+    <div align="center">
+        <button type="button" class="btn btn-primary btn-small" id="btn1" align="center">Crear usuario</button>
+    </div>
+</div>
+
+<!-- ################################################################################################################## -->
+
+
+<!-- Formulario para la creacion de un nuevo Ticket -->
+
+<div id="ticketForm">
+    <h3 align="center">Nuevo Ticket</h3>
+    <div class="form-group">
+        <label for="subject">Título</label>
+        <input type="text" class="form-control" id="subject" required>
+    </div>
+    <div class="form-group">
+        <label for="desc">Descripción:</label>
+        ​<textarea class="form-control" rows="4" cols="40" id="desc" title="Especificación del problema" required></textarea>
+    </div>
+    <div align="center">
+        <button type="button" class="btn btn-primary btn-small" id="botonTicket">
+            <span class="glyphicon glyphicon-upload"></span>
+            Crear ticket
+        </button>
+        
+    </div>
+</div>
+
+<!-- ############################################################################################################### -->
+
+
+<!-- Muestra un mensaje una vez creado un ticket -->
+
+<div id="ticket" class="alert alert-success"></div>
+
+ <script id="ticketInfo" type="text/x-handlebars-template">
+   {{#if mostrar}}
+                  Ticket creado con ID: <i>{{id}}</i>                                
+                               
+   {{/if}}
+       
+ </script>
+
+
+<!-- ############################################################################################################### -->
+
+</html>

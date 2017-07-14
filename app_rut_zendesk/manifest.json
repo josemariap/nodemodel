@@ -1,0 +1,35 @@
+{
+  "name": "Registro de usuarios",
+  "author": {
+    "name": "Snoop Consulting",
+    "email": "zendesk@snoopconsulting.com",
+    "url": "http://www.snoopconsulting.com/"
+  },
+  "parameters": [
+    {
+      "name": "urlRest",
+      "type": "url",
+      "required": true,
+      "default": "https://www.example.com/usuario/"
+    },
+    {
+      "name": "username",
+      "type": "text",
+      "required": true,
+      "default": ""
+    },
+    {
+      "name": "username_password",
+      "type": "password",
+      "required": true,
+      "default": ""
+    }
+    ],
+  "defaultLocale": "es",
+  "private": true,
+  "location": { "zendesk":
+    { "top_bar": "assets/html/iframe.html" }
+  },
+  "version": "1.0",
+  "frameworkVersion": "2.0"
+}
